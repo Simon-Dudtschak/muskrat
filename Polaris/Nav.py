@@ -4,6 +4,7 @@ def main():
     print("Initializing Nav...")
 
     """ INITILIAZE VARIABLES"""
+    
     # Rover position
     start = []
 
