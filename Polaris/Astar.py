@@ -14,21 +14,8 @@ class Node():
         return self.position == other.position
 
 
-def astar(maze, start, end):
+def astar(open_list, closed_list, start_node, end_node, maze, bind):
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
-
-    # Create start and end node
-    start_node = Node(None, start)
-    start_node.g = start_node.h = start_node.f = 0
-    end_node = Node(None, end)
-    end_node.g = end_node.h = end_node.f = 0
-
-    # Initialize both open and closed list
-    open_list = []
-    closed_list = []
-
-    # Add the start node
-    open_list.append(start_node)
 
     # Loop until you find the end
     while len(open_list) > 0:
