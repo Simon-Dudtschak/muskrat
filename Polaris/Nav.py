@@ -1,4 +1,4 @@
-from Astar import astar, Node
+from Astar import astar, State
 
 def main():
     print("Initializing Nav...")
@@ -10,21 +10,21 @@ def main():
     # Goal position
     end = []
 
-    # Create start and end node
-    start_node = Node(None, start)
-    start_node.g = start_node.h = start_node.f = 0
-    end_node = Node(None, end)
-    end_node.g = end_node.h = end_node.f = 0
+    # Create start and end state
+    start_state = State(None, start)
+    start_state.g = start_state.h = start_state.f = 0
+    end_state = State(None, end)
+    end_state.g = end_state.h = end_state.f = 0
 
     # Initialize both open and closed list
     open_list = []
     closed_list = []
 
-    # Add the start node
-    open_list.append(start_node)
+    # Add the start state
+    open_list.append(start_state)
 
     """ BEGIN PATHFINDING """
-    
+
 
 
 if __name__ == '__main__':

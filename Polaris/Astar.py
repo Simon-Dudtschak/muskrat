@@ -1,6 +1,6 @@
 
-class Node():
-    """A node class for A* Pathfinding"""
+class State():
+    """A state class for A* Pathfinding"""
 
     def __init__(self, parent=None, position=None):
         self.parent = parent
@@ -14,28 +14,28 @@ class Node():
         return self.position == other.position
 
 
-def astar(open_list, closed_list, start_node, end_node, maze, bind):
+def astar(open_list, closed_list, start_state, end_state, maze, bind):
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
 
     # Loop until you find the end
     while len(open_list) > 0:
 
-        # Get the current node
-        current_node = open_list[0]
+        # Get the current state
+        current_state = open_list[0]
         current_index = 0
         for index, item in enumerate(open_list):
-            if item.f < current_node.f:
-                current_node = item
+            if item.f < current_state.f:
+                current_state = item
                 current_index = index
 
         # Pop current off open list, add to closed list
         open_list.pop(current_index)
-        closed_list.append(current_node)
+        closed_list.append(current_state)
 
         # Found the goal
-        if current_node == end_node:
+        if current_state == end_state:
             path = []
-            current = current_node
+            current = current_state
             while current is not None:
                 path.append(current.position)
                 current = current.parent
@@ -45,22 +45,22 @@ def astar(open_list, closed_list, start_node, end_node, maze, bind):
         children = []
         for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
 
-            # Get node position
-            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
+            # Get state position
+            state_position = (current_state.position[0] + new_position[0], current_state.position[1] + new_position[1])
 
             # Make sure within range
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+            if state_position[0] > (len(maze) - 1) or state_position[0] < 0 or state_position[1] > (len(maze[len(maze)-1]) -1) or state_position[1] < 0:
                 continue
 
             # Make sure walkable terrain
-            if maze[node_position[0]][node_position[1]] != 0:
+            if maze[state_position[0]][state_position[1]] != 0:
                 continue
 
-            # Create new node
-            new_node = Node(current_node, node_position)
+            # Create new state
+            new_state = State(current_state, state_position)
 
             # Append
-            children.append(new_node)
+            children.append(new_state)
 
         # Loop through children
         for child in children:
@@ -71,13 +71,13 @@ def astar(open_list, closed_list, start_node, end_node, maze, bind):
                     continue
 
             # Create the f, g, and h values
-            child.g = current_node.g + 1
-            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.g = current_state.g + 1
+            child.h = ((child.position[0] - end_state.position[0]) ** 2) + ((child.position[1] - end_state.position[1]) ** 2)
             child.f = child.g + child.h
 
             # Child is already in the open list
-            for open_node in open_list:
-                if child == open_node and child.g > open_node.g:
+            for open_state in open_list:
+                if child == open_state and child.g > open_state.g:
                     continue
 
             # Add the child to the open list
