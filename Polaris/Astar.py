@@ -1,4 +1,7 @@
 
+# Adapted from:
+# https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
+
 class State():
     """A state class for A* Pathfinding"""
 
@@ -17,8 +20,13 @@ class State():
 def astar(open_list, closed_list, start_state, end_state, maze, bind):
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
 
+    count = 0
+
     # Loop until you find the end
     while len(open_list) > 0:
+
+        if count >= bind: done = True
+        count-=-1
 
         # Get the current state
         current_state = open_list[0]
@@ -33,13 +41,17 @@ def astar(open_list, closed_list, start_state, end_state, maze, bind):
         closed_list.append(current_state)
 
         # Found the goal
-        if current_state == end_state:
+        if done:
+            # Has the goal been reached
+            solutionFound = False
+            if current_state == end_state: solutionFound = True
+
             path = []
             current = current_state
             while current is not None:
                 path.append(current.position)
                 current = current.parent
-            return path[::-1] # Return reversed path
+            return path[::-1], open_list, closed_list, solutionFound # Return reversed path
 
         # Generate children
         children = []
