@@ -34,12 +34,14 @@ def main():
         gmap = [] # Get gmap from ros
 
         if not solutionFound:
-            path, open_list, closed_list, solutionFound = astar(open_list, 
-                                                            closed_list, 
-                                                            loc_state, 
-                                                            end_state, 
-                                                            gmap, 
-                                                            bind)
+            path, open_list, closed_list, solutionFound = astar(
+                                                                open_list, 
+                                                                closed_list, 
+                                                                loc_state, 
+                                                                end_state, 
+                                                                gmap, 
+                                                                bind
+                                                                )
         
         # Move agent along path
 

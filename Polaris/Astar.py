@@ -1,6 +1,8 @@
 
 # Adapted from:
 # https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
+# hosted at: https://gist.github.com/Nicholas-Swift/003e1932ef2804bebef2710527008f44#file-astar-py
+
 
 class State():
     """A state class for A* Pathfinding"""
