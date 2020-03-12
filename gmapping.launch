@@ -1,15 +1,9 @@
 <launch>
   <arg name="scan_topic"  default="/leddar/leddarData"/>
-  <arg name="base_frame"  default="link_1"/>
-  <arg name="odom_frame"  default="rover_real_model"/>
+  <arg name="base_frame"  default="leddar"/>
+  <arg name="odom_frame"  default="leddar"/>
   
-  <node pkg="ros-tf-transforms" type="NED_EDU_node" name="NED_to_EDU_node"></node>
-  
-  <node pkg="ros-tf-transforms" type="gps_transform_node" name="gps_repub"></node>
-
-  <node pkg="ros-tf-transforms" type="leddar_transform_node" name="leddar_to_main_transform_node"></node>
-  
-  <node pkg="rviz" type="rviz" name="rviz"></node>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d /rviz/roverMapping.rviz"></node>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="base_frame" value="$(arg base_frame)"/>
@@ -32,7 +26,7 @@
     <param name="stt" value="0.02"/>
     <param name="linearUpdate" value="0.5"/>
     <param name="angularUpdate" value="0.436"/>
-    <param name="temporalUpdate" value="-1.0"/>
+    <param name="temporalUpdate" value="0.50"/>
     <param name="resampleThreshold" value="0.5"/>
     <param name="particles" value="80"/>
   <!--
@@ -47,7 +41,7 @@
     <param name="xmax" value="1.0"/>
     <param name="ymax" value="1.0"/>
 
-    <param name="delta" value="0.05"/>
+    <param name="delta" value="0.10"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
